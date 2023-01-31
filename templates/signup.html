@@ -1,27 +1,6 @@
-<!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="utf-8" />
-        <title>Superex - NFT Marketplace HTML Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="NFT Marketplace Website Template" />
-        <meta name="keywords" content="blockchain nft, collectibles, crypto, crypto art, crypto asset, crypto marketplace, digital, item, NFT, NFT assets, NFT Gaming, nft marketplace, token, wallet" />
-        <meta content="Shreethemes" name="author" />
-        <meta content="support@shreethemes.in" name="Email" />
-        <meta content="https://shreethemes.in/" name="Website" />
-        <!-- favicon -->
-        <link rel="shortcut icon" href="images/favicon.ico">
-        <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-        <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet">
-        <!-- Main css -->
-        <link href="css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
-        <link href="css/colors/default.css" rel="stylesheet" id="color-opt">
-    </head>
-
-    <body>
+{% extends 'homepage.html' %}
+{% load static %}
+{% block content %}
         <!-- Loader -->
         <!-- <div id="preloader">
             <div id="status">
@@ -60,44 +39,51 @@
                             <!-- Start Content -->
                             <div class="title-heading text-center my-auto">
                                 <div class="form-signin px-4 py-5 bg-white rounded-md shadow-sm">
-                                    <form>
-                                        <h5 class="mb-4">Register Your Account</h5>
+                                    <form method = 'POST'>
+                                        {% csrf_token %}
+                                        <h5 class="mb-4">Зарегестрируйтесь</h5>
                             
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-2">
-                                                    <input type="text" class="form-control" id="RegisterName" placeholder="Harry">
-                                                    <label for="RegisterName">First Name</label>
+                                                    <input name='username' type="text" class="form-control" placeholder="Harry">
+                                                    <label for="RegisterName">Имя пользователя</label>
                                                 </div>
                                             </div><!--end col-->
     
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-2">
-                                                    <input type="email" class="form-control" id="RegisterEmail" placeholder="name@example.com">
-                                                    <label for="RegisterEmail">Email Address</label>
+                                                    <input name='email' type="email" class="form-control"  placeholder="name@example.com">
+                                                    <label for="RegisterEmail">Почта</label>
                                                 </div>
                                             </div><!--end col-->
     
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-3">
-                                                    <input type="password" class="form-control" id="RegisterPassword" placeholder="Password">
-                                                    <label for="RegisterPassword">Password</label>
+                                                    <input name='password' type="password" class="form-control"  placeholder="Password">
+                                                    <label for="RegisterPassword">Пароль</label>
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-12">
+                                                <div class="form-floating mb-3">
+                                                    <input name='confirm_password' type="password" class="form-control"  placeholder="Password">
+                                                    <label for="RegisterPassword">Подтвердите пароль</label>
                                                 </div>
                                             </div><!--end col-->
                                         
                                             <div class="col-lg-12">
                                                 <div class="form-check align-items-center d-flex mb-3">
-                                                    <input class="form-check-input mt-0" type="checkbox" value="" id="AcceptT&C">
-                                                    <label class="form-check-label text-muted ms-2" for="AcceptT&C">I Accept <a href="javascript:void(0)" class="text-primary">Terms And Condition</a></label>
+                                                    <input class="form-check-input mt-0" type="checkbox" >
+                                                    <label class="form-check-label text-muted ms-2" for="AcceptT&C">Я согласен с <a href="javascript:void(0)" class="text-primary">пользовательским соглашением</a></label>
                                                 </div>
                                             </div><!--end col-->
                             
                                             <div class="col-lg-12">
-                                                <button class="btn btn-primary rounded-md w-100" type="submit">Register</button>
+                                                <button class="btn btn-primary rounded-md w-100" type="submit">Зарегестрироваться</button>
                                             </div><!--end col-->
     
                                             <div class="col-12 text-center mt-4">
-                                                <small><span class="text-muted me-2">Already have an account ? </span> <a href="login.html" class="text-dark fw-bold">Sign in</a></small>
+                                                <small><span class="text-muted me-2">Уже есть аккаунт? </span> <a href="login.html" class="text-dark fw-bold">Войти</a></small>
                                             </div><!--end col-->
                                         </div><!--end row-->
                                     </form>
@@ -105,11 +91,7 @@
                             </div>
                             <!-- End Content -->
 
-                            <!-- Start Footer -->
-                            <div class="text-center">
-                                <small class="mb-0 text-light title-dark">© <script>document.write(new Date().getFullYear())</script> Superex. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="https://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.</small>
-                            </div>
-                            <!-- End Footer -->
+
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -165,14 +147,4 @@
             </div>
         </div>
         <!-- end Style switcher -->
-        
-        <!-- javascript -->
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/feather.min.js"></script>
-        <!-- Main Js -->
-        <script src="js/plugins.init.js"></script>
-        <script src="js/app.js"></script>
-        
-    </body>
-
-</html>
+        {% endblock content %}
