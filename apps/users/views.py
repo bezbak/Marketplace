@@ -36,7 +36,7 @@ def user_login(request):
             login(request, user)
             return redirect('index')
         except:
-            return HttpResponse('Неправильный логин или пароль')
+            return HttpResponse('<h1>Неправильный логин или пароль</h1>')
     context = {
         'setting':setting
     }
