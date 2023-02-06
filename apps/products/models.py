@@ -1,5 +1,6 @@
 from django.db import models
 from apps.users.models import User
+from apps.category.models import Category
 # Create your models here.
 class Currency(models.Model):
     name = models.CharField(
@@ -34,6 +35,22 @@ class Product(models.Model):
         User,
         related_name='owner',
         on_delete=models.CASCADE
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.PROTECT,
+        related_name='category_product',
+    )
+    PRODUCT_STATUS = (
+        ('На модерации', 'На модерации'),
+        ('Активный', 'Активный'),
+        ('Не активный', 'Не активный'),
+        ('Откланён', 'Откланён'),
+    )
+    product_status = models.CharField(
+        choices=PRODUCT_STATUS,
+        default='На модерации',
+        max_length=25
     )
     created = models.DateTimeField(
         auto_now_add=True

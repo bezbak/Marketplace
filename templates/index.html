@@ -322,8 +322,8 @@
                 <div class="row justify-content-center">
                     <div class="col">
                         <div class="section-title text-center mb-4 pb-2">
-                            <h4 class="title mb-4">Explore Hot Products</h4>
-                            <p class="text-muted para-desc mb-0 mx-auto">We are a huge marketplace dedicated to connecting great artists of all Superex with their fans and unique token collectors!</p>
+                            <h4 class="title mb-4">Новые обьявления Оша</h4>
+                            <p class="text-muted para-desc mb-0 mx-auto">Мы являемся огромной торговой площадкой, посвященной продавцам оша и их поклонниками и коллекционерами уникальных товаров!</p>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -332,30 +332,23 @@
                     <div class="col filters-group-wrap">
                         <div class="filters-group">
                             <ul class="container-filter mb-0 categories-filter text-center list-unstyled filter-options">
-                                <li class="list-inline-item categories position-relative text-dark active" data-group="all"><i class="uil uil-browser"></i> All</li>
-                                <li class="list-inline-item categories position-relative text-dark" data-group="games"><i class="uil uil-volleyball"></i> Games</li>
-                                <li class="list-inline-item categories position-relative text-dark" data-group="art"><i class="uil uil-chart-pie-alt"></i> Art</li>
-                                <li class="list-inline-item categories position-relative text-dark" data-group="music"><i class="uil uil-music"></i> Music</li>
-                                <li class="list-inline-item categories position-relative text-dark" data-group="video"><i class="uil uil-camera-plus"></i> Video</li>
-                                <li class="list-inline-item categories position-relative text-dark" data-group="memes"><i class="uil uil-rocket"></i> Memes</li>
+                                <li class="list-inline-item categories position-relative text-dark active" data-group="all"><i class="uil uil-browser"></i> Все</li>
+                                {% for category in categories %}
+                                <li class="list-inline-item categories position-relative text-dark" data-group="{{category.name}}"><i class="uil uil-volleyball"></i> {{category.name}}</li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
 
                 <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 g-4" id="grid">
-                    <div class="col picture-item" data-groups='["games"]'>
+                    {% for product in products %}
+                    <div class="col picture-item" data-groups='["{{product.category.name}}"]'>
                         <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
                             <div class="d-flex justify-content-between">
                                 <div class="img-group">
                                     <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
+                                        <img src="{{product.owner.profile_image.url}}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
                                     </a>
                                 </div>
                                 
@@ -363,442 +356,22 @@
                             </div>
 
                             <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/gif/7.gif'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 start-0 m-2">
-                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                </div>
+                                <a href="item-detail-one.html"><img src="{{product.image.url}}" class="img-fluid" alt=""></a>
 
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-
-                                <div class="position-absolute bottom-0 start-0 m-2 bg-gradient-primary text-white title-dark rounded-pill px-3">
-                                    <i class="uil uil-clock"></i> <small id="auction-item-1" class="fw-bold"></small>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Deep Sea Phantasy</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["art"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
                                 
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/items/1.jpg'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 start-0 m-2">
-                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                </div>
-
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
                             </div>
 
                             <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">CyberPrimal 042 LAN</a>
+                                <a href="item-detail-one.html" class="title text-dark h6">{{product.title}}</a>
 
                                 <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
+                                    <small class="rate fw-bold">{{product.price}} {{product.currency}}</small>
+                                    <small class="text-dark fw-bold">{{product.category}}</small>
                                 </div>
                             </div>
                         </div>
                     </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["music", "memes"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/gif/8.gif'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 start-0 m-2">
-                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                </div>
-
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Crypto Egg Stamp #5</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["video"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/items/2.jpg'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                                <div class="position-absolute bottom-0 start-0 m-2 bg-gradient-primary text-white title-dark rounded-pill px-3">
-                                    <i class="uil uil-clock"></i> <small id="auction-item-2" class="fw-bold"></small>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Colorful Abstract Painting</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["memes", "video"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/items/3.jpg'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Liquid Forest Princess</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["games"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/gif/9.gif'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 start-0 m-2">
-                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                </div>
-
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-
-                                <div class="position-absolute bottom-0 start-0 m-2 bg-gradient-danger text-white title-dark rounded-pill px-3">
-                                    <i class="uil uil-clock"></i> <small id="auction-item-3" class="fw-bold"></small>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Spider Eyes Modern Art</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["art"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/items/4.jpg'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Synthwave Painting</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["music"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/gif/10.gif'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 start-0 m-2">
-                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                </div>
-
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Contemporary Abstract</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["memes", "video"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Valkyrie Abstract Art</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["art"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/gif/5.gif'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">The girl with the firefly</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-
-                    <div class="col picture-item" data-groups='["games"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/items/6.jpg'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Dodo hide the seek</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
-                    
-                    <div class="col picture-item" data-groups='["music"]'>
-                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                            <div class="d-flex justify-content-between">
-                                <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
-                                        <img src="{% static 'images/client/08.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/05.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                    <a href="creator-profile.html" class="user-avatar ms-n3">
-                                        <img src="{% static 'images/client/06.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                    </a>
-                                </div>
-                                
-                                <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                            </div>
-                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{% static 'images/gif/6.gif'%}" class="img-fluid" alt=""></a>
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <a href="item-detail-one.html" class="btn btn-pills btn-icon"><i class="uil uil-shopping-cart-alt"></i></a>
-                                </div>
-
-                                <div class="position-absolute bottom-0 start-0 m-2 bg-gradient-primary text-white title-dark rounded-pill px-3">
-                                    <i class="uil uil-clock"></i> <small id="auction-item-4" class="fw-bold"></small>
-                                </div>
-                            </div>
-
-                            <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">Pinky Ocean</a>
-
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="rate fw-bold">20.5 ETH</small>
-                                    <small class="text-dark fw-bold">1 out of 10</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--end col-->
+                    {% endfor %}
                 </div><!--end row-->
             </div><!--end container-->
 

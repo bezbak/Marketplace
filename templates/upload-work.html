@@ -76,6 +76,15 @@
                                                     <textarea name="description" id="comments" rows="4" class="form-control" placeholder="Description :"></textarea>
                                                 </div><!--end col-->
         
+                                                <div class="col-md-12 mb-4">
+                                                    <label class="form-label fw-bold">Категория :</label>
+                                                    <select name='category' class="form-control">
+                                                        {% for category in categories %}
+                                                            <option value='{{category.id}}'>{{category.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div><!--end col-->
+
                                                 <div class="col-md-6 mb-4">
                                                     <label class="form-label fw-bold">Валюта :</label>
                                                     <select name='currency' class="form-control">
