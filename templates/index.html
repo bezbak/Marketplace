@@ -347,7 +347,7 @@
                         <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
                             <div class="d-flex justify-content-between">
                                 <div class="img-group">
-                                    <a href="creator-profile.html" class="user-avatar">
+                                    <a href="{% url 'account' product.owner.username %}" class="user-avatar">
                                         <img src="{{product.owner.profile_image.url}}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
                                     </a>
                                 </div>
@@ -356,13 +356,13 @@
                             </div>
 
                             <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                <a href="item-detail-one.html"><img src="{{product.image.url}}" class="img-fluid" alt=""></a>
+                                <a href="{% url 'product_detail' product.id %}"><img src="{{product.image.url}}" class="img-fluid" alt=""></a>
 
                                 
                             </div>
 
                             <div class="card-body content position-relative p-0 mt-3">
-                                <a href="item-detail-one.html" class="title text-dark h6">{{product.title}}</a>
+                                <a href="{% url 'product_detail' product.id %}" class="title text-dark h6">{{product.title}}</a>
 
                                 <div class="d-flex justify-content-between mt-2">
                                     <small class="rate fw-bold">{{product.price}} {{product.currency}}</small>

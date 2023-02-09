@@ -29,4 +29,64 @@ def create_product(request):
         'currency':currency,
         'categories':categories,
     }
-    return render(request, 'upload-work.html', context)
+    return render(request, 'products/upload-work.html', context)
+
+def product_detail(request, id):
+    product = Product.objects.get(id = id)
+    setting = Settings.objects.latest('id')
+    context = {
+        'setting': setting,
+        'product': product,
+    }
+    return render(request, 'products/item-detail-one.html', context)
+
+def product_update(request, id):
+    product = Product.objects.get(id=id)
+    if not request.user.is_authenticated and request.user != product.owner:
+        return HttpResponseRedirect("/")
+    setting = Settings.objects.latest('id')
+    currency = Currency.objects.all()
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        image = request.FILES.get('image')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        curr = request.POST.get('currency')
+        category = request.POST.get('category')
+        # try:
+        product = Product.objects.get(id=id)
+        product.title = title
+        product.image = image
+        product.description = description
+        product.price = price
+        product.currency.id = curr
+        product.category.id = category
+        product.save()
+        return redirect('product_detail', product.id)
+        # except:
+        #     return redirect('product_update', product.id)
+    context = {
+        'setting': setting,
+        'product': product,
+        'currency':currency,
+        'categories':categories,
+    }
+    return render(request, 'products/product_update.html', context)
+
+def product_delete(request, id):
+    if not request.user.is_authenticated and request.user != product.owner:
+        return HttpResponseRedirect("/")
+    product = Product.objects.get(id=id)
+    setting = Settings.objects.latest('id')
+    if request.method == 'POST':
+        if 'yes' in request.POST:
+            product.delete()
+            return redirect('index')
+        if 'no' in request.POST:
+            return redirect('product_detail', product.id)
+    context = {
+        'setting': setting,
+        'product': product,
+    }
+    return render(request, 'products/product_delete.html', context)

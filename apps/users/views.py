@@ -23,7 +23,7 @@ def register(request):
     context = {
         'setting':setting
     }
-    return render(request, 'signup.html', context)
+    return render(request, 'users/signup.html', context)
 
 def user_login(request):
     setting = Settings.objects.latest('id')
@@ -40,7 +40,7 @@ def user_login(request):
     context = {
         'setting':setting
     }
-    return render(request, 'login.html', context)
+    return render(request, 'users/login.html', context)
 
 def account(request, username):
     setting = Settings.objects.latest('id')
@@ -49,4 +49,4 @@ def account(request, username):
         'setting':setting,
         'user':user,
     }
-    return render(request, 'creator-profile.html', context)
+    return render(request, 'users/creator-profile.html', context)
