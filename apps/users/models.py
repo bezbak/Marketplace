@@ -9,7 +9,11 @@ class User(AbstractUser):
         validators=[validate_file_extension]
     )
     email = models.EmailField()
-    
+    about_self = models.TextField(
+        max_length=500,
+        blank=True,
+        null=True
+    )
     def __str__(self):
         return self.username
     

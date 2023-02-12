@@ -50,3 +50,36 @@ def account(request, username):
         'user':user,
     }
     return render(request, 'users/creator-profile.html', context)
+
+def edit_profile(request, username):
+    user = User.objects.get(username = username)
+    if request.user != user:
+        return redirect('index')
+    setting = Settings.objects.latest('id')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        about_self = request.POST.get('about_self')
+        if 'update' in request.POST:
+            user.about_self = about_self
+            user.username = username
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+            user.save()
+            return redirect('edit_profile', user.username)
+        if 'delete' in request.POST:
+            user.delete()
+            return redirect('register')
+        if 'profile_image_update' in request.POST:
+            image = request.FILES.get('image')
+            user.profile_image = image
+            user.save()
+            return redirect('edit_profile', user.username)
+    context = {
+        'setting':setting,
+        'user':user,
+    }
+    return render(request, 'users/creator-profile-edit.html', context)
