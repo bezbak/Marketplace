@@ -20,3 +20,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+        
+class Reseted_passwords(models.Model):
+    email = models.EmailField()
+    code = models.CharField(max_length=15)

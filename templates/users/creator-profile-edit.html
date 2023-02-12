@@ -96,80 +96,31 @@
                             </div>
                         </div>
 
-                        {% comment %} <div class="rounded-md shadow mt-4">
-                            <div class="p-4 border-bottom">
-                                <h5 class="mb-0">Account Notifications :</h5>
-                            </div>
-
-                            <div class="p-4">
-                                <div class="d-flex justify-content-between pb-4">
-                                    <h6 class="mb-0">When someone mentions me</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="noti1">
-                                        <label class="form-check-label" for="noti1"></label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-4 border-top">
-                                    <h6 class="mb-0">When someone follows me</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" checked id="noti2">
-                                        <label class="form-check-label" for="noti2"></label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-4 border-top">
-                                    <h6 class="mb-0">When shares my activity</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="noti3">
-                                        <label class="form-check-label" for="noti3"></label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-4 border-top">
-                                    <h6 class="mb-0">When someone messages me</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="noti4">
-                                        <label class="form-check-label" for="noti4"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="rounded-md shadow mt-4">
                             <div class="p-4 border-bottom">
-                                <h5 class="mb-0">Marketing Notifications :</h5>
+                                <h5 class="mb-0 text-danger">Поменять пароль :</h5>
                             </div>
 
-                            <div class="p-4">
-                                <div class="d-flex justify-content-between pb-4">
-                                    <h6 class="mb-0">There is a sale or promotion</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="noti5">
-                                        <label class="form-check-label" for="noti5"></label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-4 border-top">
-                                    <h6 class="mb-0">Company news</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="noti6">
-                                        <label class="form-check-label" for="noti6"></label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-4 border-top">
-                                    <h6 class="mb-0">Weekly jobs</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" checked id="noti7">
-                                        <label class="form-check-label" for="noti7"></label>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-4 border-top">
-                                    <h6 class="mb-0">Unsubscribe News</h6>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" checked id="noti8">
-                                        <label class="form-check-label" for="noti8"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
-
+                            <form method = 'POST' class="p-4">
+                                {% csrf_token %}
+                                <div class="col-12 mb-4">
+                                    <label class="form-label h6">Старый пароль</label>
+                                    <input name="old_password" id="email" type="password" class="form-control">
+                                </div><!--end col-->
+                                <div class="col-12 mb-4">
+                                    <label class="form-label h6">Новый пароль</label>
+                                    <input name="new_password" id="email" type="password" class="form-control">
+                                </div><!--end col-->
+                                <div class="col-12 mb-4">
+                                    <label class="form-label h6">Подтвердите пароль</label>
+                                    <input name="confirm_new_password" id="email" type="password" class="form-control">
+                                </div><!--end col-->
+                                <div class="mt-4">
+                                    <button name ='update_password' class="btn btn-primary">Обновить пароль</button>
+                                </div><!--end col-->
+                            </form>
+                        </div>
+                        
                         <div class="rounded-md shadow mt-4">
                             <div class="p-4 border-bottom">
                                 <h5 class="mb-0 text-danger">Удалит аккаунт :</h5>

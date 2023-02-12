@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from apps.users.models import User
+from apps.users.models import User, Reseted_passwords
 from django.contrib.auth import authenticate, login
 from apps.settings.models import Settings
 from django.http.response import HttpResponse
+from django.core.mail import send_mail
+import random
 # Create your views here.
 
 def register(request):
@@ -78,8 +80,68 @@ def edit_profile(request, username):
             user.profile_image = image
             user.save()
             return redirect('edit_profile', user.username)
+        if 'update_password' in request.POST:
+            old_password = request.POST.get('old_password')
+            new_password = request.POST.get('new_password')
+            confirm_new_password = request.POST.get('confirm_new_password')
+            if new_password == confirm_new_password:
+                try:
+                    user = User.objects.get(username = request.user.username)
+                    if user.check_password(old_password):
+                        user.set_password(new_password)
+                        user.save()
+                        return redirect('account', user.username)
+                    else:
+                        return HttpResponse('Неправильный пароль')
+                except:
+                    return HttpResponse('Пользователь не найден')
+            else:
+                return HttpResponse('Пароли отличаются')     
     context = {
         'setting':setting,
         'user':user,
     }
     return render(request, 'users/creator-profile-edit.html', context)
+
+def reset_password(request):
+    if request.method =='POST':
+        email = request.POST.get('email')   
+        try:
+            user = User.objects.get(email = email)
+            rd_num = random.randint(100000000, 999999999)
+            reseted_password = Reseted_passwords.objects.create(email = email, code = rd_num)
+            reseted_password.save()
+            send_mail(
+                    #subject 
+                    f"Код для сброса пароля", 
+                    #message 
+                    f"Здравствуйте вот ваш код {rd_num}", 
+                    #from email 
+                    'noreply@somehost.local', 
+                    #to email 
+                    [email] 
+                )
+            return redirect('create_password')
+        except:
+            return HttpResponse('Пользователя с такой почтой нету')
+    return render(request, 'users/reset-password.html')
+
+def create_password(request):
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        if password == confirm_password:
+            try:
+                reseted_password = Reseted_passwords.objects.get(code = code)
+                user = User.objects.get(username = username,email = reseted_password.email)
+                user.set_password(password)
+                user.save()
+                reseted_password.delete()
+                return redirect('user_login')
+            except Exception as ex:
+                return HttpResponse(ex)
+        else:
+                return HttpResponse('Пароли отличаются')    
+    return render(request,'users/create_password.html')
