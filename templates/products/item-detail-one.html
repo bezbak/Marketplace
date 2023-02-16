@@ -38,9 +38,24 @@
                                     {% if request.user.is_authenticated and request.user == product.owner %}
                                     <a href="{% url 'product_update' product.id %}" class="btn btn-l btn-pills btn-primary" data-bs-target="#NftBuynow"><i class="mdi mdi-file-edit fs-5 me-2"></i> Изменить продукт</a>
                                     <a href="{% url 'product_delete' product.id %}" class="btn btn-l btn-pills btn-primary" data-bs-target="#NftBuynow"><i class="mdi mdi-trash-can fs-5 me-2"></i> Удалить продукт</a>
+                                    {% if product.product_status == 'Активный' %}
+                                    <form method='POST'>
+                                        {% csrf_token %}
+                                        <button type='submit' name='take_off' class="mt-2 btn btn-l btn-pills btn-primary"> <i class="mdi mdi-window-close fs-5 me-2"></i> Деактивировать</button>
+                                    </form>
+                                    {% else %}
+                                    <form method='POST'>
+                                        {% csrf_token %}
+                                        <button type='submit' name='activate' class="mt-2 btn btn-l btn-pills btn-primary"> <i class="mdi mdi-plus fs-5 me-2"></i> Активировать</button>
+                                    </form>
+                                    {% endif %}
                                     {% else %}
                                     <a href="#" class="btn btn-l btn-pills btn-primary me-2" data-bs-toggle="modal" data-bs-target="#NftChat"><i class="mdi mdi-chat fs-5 me-2"></i> Написать</a>
                                     <a href="#" class="btn btn-l btn-pills btn-primary" data-bs-toggle="modal" data-bs-target="#NftBuynow"><i class="mdi mdi-cart fs-5 me-2"></i> Купить</a>
+                                    <form method='POST'>
+                                        {% csrf_token %}
+                                        <button type='submit' name='like' class="mt-2 btn btn-l btn-pills btn-primary"> <i class="mdi mdi-heart fs-5 me-2"></i> Сохранить</button>
+                                    </form>
                                     {% endif %}
 
                                 </div>

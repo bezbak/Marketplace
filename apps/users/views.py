@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from apps.users.models import User, Reseted_passwords
 from django.contrib.auth import authenticate, login
 from apps.settings.models import Settings
+from apps.products.models import Product
 from django.http.response import HttpResponse
 from django.core.mail import send_mail
 import random
@@ -47,9 +48,11 @@ def user_login(request):
 def account(request, username):
     setting = Settings.objects.latest('id')
     user = User.objects.get(username = username)
+    active_posts = Product.objects.all().filter(owner = user, product_status = 'Активный')
     context = {
         'setting':setting,
         'user':user,
+        'active_posts':active_posts,
     }
     return render(request, 'users/creator-profile.html', context)
 

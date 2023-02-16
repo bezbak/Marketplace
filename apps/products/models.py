@@ -49,7 +49,7 @@ class Product(models.Model):
     )
     product_status = models.CharField(
         choices=PRODUCT_STATUS,
-        default='На модерации',
+        default='Активный',
         max_length=25
     )
     created = models.DateTimeField(
@@ -62,3 +62,15 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        
+class Liked_products(models.Model):
+    user = models.ForeignKey(
+        User,
+        related_name='liked_user',
+        on_delete=models.CASCADE,
+    )
+    product = models.ForeignKey(
+        Product,
+        related_name='liked_product',
+        on_delete=models.CASCADE
+    )

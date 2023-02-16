@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.products.models import Product, Currency
+from apps.products.models import Product, Currency, Liked_products
 from apps.category.models import Category
 from apps.settings.models import Settings
 from django.http import HttpResponseRedirect
@@ -34,6 +34,24 @@ def create_product(request):
 def product_detail(request, id):
     product = Product.objects.get(id = id)
     setting = Settings.objects.latest('id')
+    if request.method == 'POST':
+        if 'take_off' in request.POST:
+            product.product_status = 'Не активный'
+            product.save()
+            return redirect('product_detail', product.id)
+        if 'activate' in request.POST:
+            product.product_status = 'Активный'
+            product.save()
+            return redirect('product_detail', product.id)
+        if 'like' in request.POST:
+            try: 
+                liked_product = Liked_products.objects.get(product = product, user = request.user)
+                liked_product.delete()
+                return redirect('product_detail', product.id)
+            except:
+                liked_product = Liked_products.objects.create(product = product, user = request.user)
+                liked_product.save()
+                return redirect('product_detail', product.id)
     context = {
         'setting': setting,
         'product': product,

@@ -55,27 +55,19 @@
                             </li>
                             
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="Liked-tab" data-bs-toggle="tab" data-bs-target="#Liked" type="button" role="tab" aria-controls="Liked" aria-selected="false">Liked</button>
+                                <button class="nav-link" id="Liked-tab" data-bs-toggle="tab" data-bs-target="#Liked" type="button" role="tab" aria-controls="Liked" aria-selected="false">Понравившиеся</button>
                             </li>
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="Sale-tab" data-bs-toggle="tab" data-bs-target="#Sale" type="button" role="tab" aria-controls="Sale" aria-selected="false">On Sale</button>
+                                <button class="nav-link" id="Sale-tab" data-bs-toggle="tab" data-bs-target="#Sale" type="button" role="tab" aria-controls="Sale" aria-selected="false">Активные</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Activites-tab" data-bs-toggle="tab" data-bs-target="#Activites" type="button" role="tab" aria-controls="Activites" aria-selected="false">Чаты</button>
                             </li>
 
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="Collection-tab" data-bs-toggle="tab" data-bs-target="#Collection" type="button" role="tab" aria-controls="Collection" aria-selected="false">Collection</button>
-                            </li>
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="Activites-tab" data-bs-toggle="tab" data-bs-target="#Activites" type="button" role="tab" aria-controls="Activites" aria-selected="false">Activites</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="Followers-tab" data-bs-toggle="tab" data-bs-target="#Followers" type="button" role="tab" aria-controls="Followers" aria-selected="false">Followers</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="About-tab" data-bs-toggle="tab" data-bs-target="#About" type="button" role="tab" aria-controls="About" aria-selected="false">About</button>
+                                <button class="nav-link" id="About-tab" data-bs-toggle="tab" data-bs-target="#About" type="button" role="tab" aria-controls="About" aria-selected="false">О себе</button>
                             </li>
                         </ul>
 
@@ -115,135 +107,85 @@
                             </div>
 
                             <div class="tab-pane fade" id="Liked" role="tabpanel" aria-labelledby="Liked-tab">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-5 col-md-8 text-center">
-                                        <img src="{% static 'images/svg/office-desk.svg'%}" class="img-fluid" alt="">
-
-                                        <div class="content">
-                                            <h5 class="mb-4">No Items</h5>
-                                            <p class="text-muted">Show your appreciation for other's work by liking the shots you love. We'll collect all of your likes here for you to revisit anytime.</p>
-                                        </div>
+                                <div class="row ">
+                                    <div class="col-lg-5 col-md-8 ">
+                                        {% for product in user.liked_user.all %}
+                                        <div class="col">
+                                            <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="img-group">
+                                                        <a href="{% url 'account' user.username %}" class="user-avatar">
+                                                            <img src="{{user.profile_image.url}}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
+                                                        </a>
+                                                    </div>
+                                                    
+                                                </div>
+                    
+                                                <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
+                                                    <a href="{% url 'product_detail' product.product.id %}"><img src="{{product.product.image.url}}" class="img-fluid" alt=""></a>
+                                                    
+                    
+                                                </div>
+                    
+                                                <div class="card-body content position-relative p-0 mt-3">
+                                                    <a href="{% url 'product_detail' product.product.id %}" class="title text-dark h6">{{product.product.title}}</a>
+                    
+                                                    <div class="d-flex justify-content-between mt-2">
+                                                        <small class="rate fw-bold">{{product.product.price}} {{product.product.currency}}</small>
+                                                        <small class="text-dark fw-bold">{{product.product.category}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--end col-->
+                                        {% endfor %}
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div>
 
                             <div class="tab-pane fade" id="Sale" role="tabpanel" aria-labelledby="Sale-tab">
                                 <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 g-4">
+                                    {% for product in active_posts %}
                                     <div class="col">
                                         <div class="card nft-items nft-primary nft-auction rounded-md shadow overflow-hidden mb-1 p-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="d-flex align-items-center">
-                                                    {% comment %} {% if user.profile_image %}
-                                                    <img src="{{user.profile_image.url}}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                                    {% endif %} {% endcomment %}
-                                                    <a href="javascript:void(0)" class="text-dark small creator-name h6 mb-0 ms-2">@StreetBoyyy</a>
+                                                   {% if product.owner.profile_image %}
+                                                    <img src="{{product.owner.profile_image.url}}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
+                                                    {% endif %} 
+                                                    <a href="{% url 'account' product.owner.username%}" class="text-dark small creator-name h6 mb-0 ms-2">{{product.owner.username}}</a>
                                                 </div>
                                             </div>
                 
                                             <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                                <a href="item-detail-one.html"><img src="{% static 'images/gif/4.gif'%}" class="img-fluid" alt=""></a>
-                                                <div class="position-absolute top-0 start-0 m-2">
-                                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                                </div>
+                                                <a href="{% url 'product_detail' product.id %}"><img src="{{product.image.url}}" class="img-fluid" alt=""></a>
+                                                {% if request.user == product.owner %}
+                                                {% else %}
                                                 <div class="position-absolute top-0 end-0 m-2">
                                                     <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
                                                 </div>                                
+                                                {% endif %}
                                             </div>
                 
                                             <div class="card-body content position-relative p-0 mt-3">
-                                                <a href="item-detail-one.html" class="title text-dark h6">Deep Sea Phantasy</a>
+                                                <a href="{% url 'product_detail' product.id %}" class="title text-dark h6">{{product.title}}</a>
                 
                                                 <div class="d-flex align-items-center justify-content-between mt-3">
                                                     <div class="">
-                                                        <small class="mb-0 d-block fw-semibold">Current Bid:</small>
-                                                        <small class="rate fw-bold">20.5 ETH</small>
+                                                        <small class="mb-0 d-block fw-semibold">Цена:</small>
+                                                        <small class="rate fw-bold">{{product.price}} {{product.currency}}</small>
                                                     </div>
-                                                    <a href="item-detail-one.html" class="btn btn-icon btn-pills btn-primary"><i class="uil uil-shopping-bag"></i></a>
+                                                    <div class="">
+                                                        <small class="mb-0 d-block fw-semibold">Категория:</small>
+                                                        <small class="rate fw-bold">{{product.category}} </small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div><!--end col-->
-                
-                                    <div class="col">
-                                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="{% static 'images/client/01.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                                    <a href="javascript:void(0)" class="text-dark small creator-name h6 mb-0 ms-2">@StreetBoyyy</a>
-                                                </div>
-                                            </div>
-                
-                                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                                <a href="item-detail-one.html"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid" alt=""></a>
-                                                <div class="position-absolute top-0 start-0 m-2">
-                                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">Arts</a>
-                                                </div>
-                                                <div class="position-absolute top-0 end-0 m-2">
-                                                    <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                                                </div>                                
-                                            </div>
-                
-                                            <div class="card-body content position-relative p-0 mt-3">
-                                                <a href="item-detail-one.html" class="title text-dark h6">CyberPrimal 042 LAN</a>
-                
-                                                <div class="d-flex align-items-center justify-content-between mt-3">
-                                                    <div class="">
-                                                        <small class="mb-0 d-block fw-semibold">Current Bid:</small>
-                                                        <small class="rate fw-bold">20.5 ETH</small>
-                                                    </div>
-                                                    <a href="item-detail-one.html" class="btn btn-icon btn-pills btn-primary"><i class="uil uil-shopping-bag"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-                                    
-                                    <div class="col">
-                                        <div class="card nft-items nft-primary rounded-md shadow overflow-hidden mb-1 p-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="{% static 'images/client/01.jpg'%}" alt="user" class="avatar avatar-sm-sm img-thumbnail border-0 shadow-sm rounded-circle">
-                                                    <a href="javascript:void(0)" class="text-dark small creator-name h6 mb-0 ms-2">@StreetBoyyy</a>
-                                                </div>
-                                            </div>
-                
-                                            <div class="nft-image rounded-md mt-3 position-relative overflow-hidden">
-                                                <a href="item-detail-one.html"><img src="{% static 'images/gif/3.gif'%}" class="img-fluid" alt=""></a>
-                                                <div class="position-absolute top-0 start-0 m-2">
-                                                    <a href="javascript:void(0)" class="badge badge-link bg-primary">GIFs</a>
-                                                </div>
-                                                <div class="position-absolute top-0 end-0 m-2">
-                                                    <span class="like-icon shadow-sm"><a href="javascript:void(0)" class="text-muted icon"><i class="mdi mdi-18px mdi-heart mb-0"></i></a></span>
-                                                </div>                                
-                                            </div>
-                
-                                            <div class="card-body content position-relative p-0 mt-3">
-                                                <a href="item-detail-one.html" class="title text-dark h6">Crypto Egg Stamp #5</a>
-                
-                                                <div class="d-flex align-items-center justify-content-between mt-3">
-                                                    <div class="">
-                                                        <small class="mb-0 d-block fw-semibold">Current Bid:</small>
-                                                        <small class="rate fw-bold">20.5 ETH</small>
-                                                    </div>
-                                                    <a href="item-detail-one.html" class="btn btn-icon btn-pills btn-primary"><i class="uil uil-shopping-bag"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
+                                    {% endfor %}
                                 </div><!--end row-->
                             </div>
 
-                            <div class="tab-pane fade" id="Collection" role="tabpanel" aria-labelledby="Collection-tab">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-5 col-md-8 text-center">
-                                        <img src="{% static 'images/svg/products-to-cart-or-basket.svg'%}" class="img-fluid" alt="">
-
-                                        <div class="content mt-4">
-                                            <h5 class="mb-4">No Collection</h5>
-                                            <p class="text-muted">Save interesting shots into personalized collections, and discover new and interesting recommendations along the way.</p>
-                                        </div>
-                                    </div><!--end col-->
-                                </div><!--end row-->
-                            </div>
 
                             <div class="tab-pane fade" id="Activites" role="tabpanel" aria-labelledby="Activites-tab">
                                 <div class="row g-4">
@@ -465,273 +407,10 @@
                                 </div><!--end row-->
                             </div>
 
-                            <div class="tab-pane fade" id="Followers" role="tabpanel" aria-labelledby="Followers-tab">
-                                <h5 class="mb-4">6 Followers</h5>
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <div class="p-4 rounded-md shadow users user-primary">
-                                            <div class="d-flex align-items-center">
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/client/02.jpg'%}" class="avatar avatar-md-md rounded-pill shadow-sm img-thumbnail" alt="">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-sm btn-primary"><i class="uil uil-plus"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content ms-3">
-                                                    <h6 class="mb-0"><a href="creator-profile.html" class="text-dark name">CutieGirl</a></h6>
-                                                    <small class="text-muted d-flex align-items-center"><i class="uil uil-map-marker fs-5 me-1"></i> Brookfield, WI</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="border-top my-4"></div>
-                                            <div class="row row-cols-xl-6 g-3">
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/1.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/2.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/gif/3.gif'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/4.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/gif/4.gif'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </div>
-                                    </div><!--end col-->
-                                    
-                                    <div class="col-md-6">
-                                        <div class="p-4 rounded-md shadow users user-primary">
-                                            <div class="d-flex align-items-center">
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/client/13.jpg'%}" class="avatar avatar-md-md rounded-pill shadow-sm img-thumbnail" alt="">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-sm btn-primary"><i class="uil uil-plus"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content ms-3">
-                                                    <h6 class="mb-0"><a href="creator-profile.html" class="text-dark name">FunnyGuy</a></h6>
-                                                    <small class="text-muted d-flex align-items-center"><i class="uil uil-map-marker fs-5 me-1"></i> Brookfield, WI</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="border-top my-4"></div>
-                                            <div class="row row-cols-xl-6 g-3">
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/3.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/gif/1.gif'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/9.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/6.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/1.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/gif/2.gif'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </div>
-                                    </div><!--end col-->
-                                    
-                                    <div class="col-md-6">
-                                        <div class="p-4 rounded-md shadow users user-primary">
-                                            <div class="d-flex align-items-center">
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/client/03.jpg'%}" class="avatar avatar-md-md rounded-pill shadow-sm img-thumbnail" alt="">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-sm btn-primary"><i class="uil uil-plus"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content ms-3">
-                                                    <h6 class="mb-0"><a href="creator-profile.html" class="text-dark name">NorseQueen</a></h6>
-                                                    <small class="text-muted d-flex align-items-center"><i class="uil uil-map-marker fs-5 me-1"></i> Brookfield, WI</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="border-top my-4"></div>
-                                            <div class="row row-cols-xl-6 g-3">
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/gif/5.gif'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/2.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/gif/6.gif'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/4.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </div>
-                                    </div><!--end col-->
-                                    
-                                    <div class="col-md-6">
-                                        <div class="p-4 rounded-md shadow users user-primary">
-                                            <div class="d-flex align-items-center">
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/client/04.jpg'%}" class="avatar avatar-md-md rounded-pill shadow-sm img-thumbnail" alt="">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-sm btn-primary"><i class="uil uil-plus"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content ms-3">
-                                                    <h6 class="mb-0"><a href="creator-profile.html" class="text-dark name">BigBull</a></h6>
-                                                    <small class="text-muted d-flex align-items-center"><i class="uil uil-map-marker fs-5 me-1"></i> Brookfield, WI</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="border-top my-4"></div>
-                                            <div class="row row-cols-xl-6 g-3">
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/7.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/8.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/9.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/10.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </div>
-                                    </div><!--end col-->
-                                    
-                                    <div class="col-md-6">
-                                        <div class="p-4 rounded-md shadow users user-primary">
-                                            <div class="d-flex align-items-center">
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/client/10.jpg'%}" class="avatar avatar-md-md rounded-pill shadow-sm img-thumbnail" alt="">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-sm btn-primary"><i class="uil uil-plus"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content ms-3">
-                                                    <h6 class="mb-0"><a href="creator-profile.html" class="text-dark name">KristyHoney</a></h6>
-                                                    <small class="text-muted d-flex align-items-center"><i class="uil uil-map-marker fs-5 me-1"></i> Brookfield, WI</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="border-top my-4"></div>
-                                            <div class="row row-cols-xl-6 g-3">
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/1.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/2.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/3.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/4.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/6.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </div>
-                                    </div><!--end col-->
-                                    
-                                    <div class="col-md-6">
-                                        <div class="p-4 rounded-md shadow users user-primary">
-                                            <div class="d-flex align-items-center">
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/client/12.jpg'%}" class="avatar avatar-md-md rounded-pill shadow-sm img-thumbnail" alt="">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-sm btn-primary"><i class="uil uil-plus"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content ms-3">
-                                                    <h6 class="mb-0"><a href="creator-profile.html" class="text-dark name">Princess</a></h6>
-                                                    <small class="text-muted d-flex align-items-center"><i class="uil uil-map-marker fs-5 me-1"></i> Brookfield, WI</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="border-top my-4"></div>
-                                            <div class="row row-cols-xl-6 g-3">
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/8.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/4.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/7.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/5.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                                
-                                                <div class="col">
-                                                    <a href="item-detail-one.html" class="user-item"><img src="{% static 'images/items/10.jpg'%}" class="img-fluid rounded-md shadow-sm" alt=""></a>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </div>
-                                    </div><!--end col-->
-                                </div><!--end row-->
-                            </div>
-
                             <div class="tab-pane fade" id="About" role="tabpanel" aria-labelledby="About-tab">
-                                <h5 class="mb-4">Calvin Carlo</h5>
+                                <h5 class="mb-4">{{user.first_name}} {{user.last_name}}</h5>
 
-                                <p class="text-muted mb-0">I have started my career as a trainee and prove my self and achieve all the milestone with good guidance and reach up to the project manager. In this journey, I understand all the procedure which make me a good developer, team leader, and a project manager.</p>
+                                <p class="text-muted mb-0">{{user.about_self}}</p>
                             </div>
                         </div>
                     </div><!--end col-->
